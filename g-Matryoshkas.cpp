@@ -8,24 +8,27 @@ int main(){
     while(t--){
         int n;
         cin>>n;
-        vector<int>arr(n);
-        unordered_map<int,int>freq;
+        vector<int>a;
+        map<int,int>freq;
         for(int i=0;i<n;i++){
-            cin>>arr[i];
-            freq[arr[i]]++;
+            int num;
+            cin>>num;
+            if(freq[num]==0){
+                a.push_back(num);
+            }
+            freq[num]++;
         }
-        sort(arr.begin(),arr.end(),greater<int>());
+        sort(a.begin(),a.end(),greater<int>());
         int sets=0;
-        for(int i=0;i<n;i++){
-            if(freq[arr[i]]>0){
+        for(int num:a){
+            while(freq[num]>0){
                 sets++;
-                int size=arr[i];
-                while(size>0&&freq[size]>0){
-                    freq[size]--;
-                    size--;
+                for(int i=num;i>=1&&freq[i]>0;i--){
+                    freq[i]--;
                 }
             }
         }
-        cout<<sets<<endl;
-    }
+            cout<<sets<<endl;
+        }
+        
 }
